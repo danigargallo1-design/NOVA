@@ -27,19 +27,7 @@
 
   <link rel="stylesheet" href="./styles.css" />
 </head>
-  <script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./sw.js")
-        .then(() => {
-          console.log("NOVA: Service Worker registrado correctamente");
-        })
-        .catch((error) => {
-          console.error("NOVA: error registrando Service Worker:", error);
-        });
-    });
-  }
-</script>
+
 <body>
   <!-- ===================================================================
        CAPA DE FONDO — halos de luz difusa + blanco roto con profundidad
@@ -153,5 +141,18 @@
   <div id="toast-host" class="toast-host" aria-live="polite"></div>
 
   <script src="./script.js"></script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js")
+        .then(() => {
+          console.log("NOVA: Service Worker registrado correctamente");
+        })
+        .catch((error) => {
+          console.error("NOVA: error registrando Service Worker:", error);
+        });
+    });
+  }
+</script>
 </body>
 </html>
