@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no"
+  />
+  <meta name="theme-color" content="#f4f5f9" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="NOVA" />
+  <meta name="description" content="NOVA — Escribe primero. Organiza después." />
+
+  <title>NOVA</title>
+
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png" />
+
+  <!-- Tipografía: Manrope (minimalista y elegante). Se cachea offline por el Service Worker. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- ===================================================================
+       CAPA DE FONDO — halos de luz difusa + blanco roto con profundidad
+       =================================================================== -->
+  <div class="bg" aria-hidden="true">
+    <div class="halo halo--pink"></div>
+    <div class="halo halo--violet"></div>
+    <div class="halo halo--lavender"></div>
+    <div class="halo halo--blue"></div>
+    <div class="bg__grain"></div>
+  </div>
+
+  <!-- ===================================================================
+       APLICACIÓN
+       =================================================================== -->
+  <main id="app" class="app">
+    <!-- HOME -->
+    <section id="view-home" class="view view--active" data-view="home"></section>
+
+    <!-- NOTAS / INBOX -->
+    <section id="view-notes" class="view" data-view="notes"></section>
+
+    <!-- BUSCAR -->
+    <section id="view-search" class="view" data-view="search"></section>
+
+    <!-- AJUSTES -->
+    <section id="view-settings" class="view" data-view="settings"></section>
+  </main>
+
+  <!-- ===================================================================
+       NAVEGACIÓN INFERIOR (glass, flotante)
+       =================================================================== -->
+  <nav id="bottom-nav" class="bottom-nav" role="navigation" aria-label="Navegación principal">
+    <div class="bottom-nav__inner">
+      <button class="nav-btn nav-btn--active" data-nav="home" aria-label="Inicio" testID="nav-home">
+        <span class="nav-btn__icon" data-icon="home"></span>
+      </button>
+      <button class="nav-btn" data-nav="notes" aria-label="Notas" testID="nav-notes">
+        <span class="nav-btn__icon" data-icon="layers"></span>
+      </button>
+      <button class="nav-btn nav-btn--center" data-nav="create" aria-label="Crear nota" testID="nav-create">
+        <span class="nav-btn__halo"></span>
+        <span class="nav-btn__icon" data-icon="plus"></span>
+      </button>
+      <button class="nav-btn" data-nav="search" aria-label="Buscar" testID="nav-search">
+        <span class="nav-btn__icon" data-icon="search"></span>
+      </button>
+      <button class="nav-btn" data-nav="settings" aria-label="Ajustes" testID="nav-settings">
+        <span class="nav-btn__icon" data-icon="settings"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================================================================
+       EDITOR (overlay a pantalla completa)
+       =================================================================== -->
+  <div id="editor" class="editor" aria-hidden="true">
+    <header class="editor__header">
+      <button class="icon-btn" id="editor-back" aria-label="Volver" testID="editor-back">
+        <span data-icon="arrow-left"></span>
+      </button>
+      <div class="editor__status" id="editor-status" testID="editor-status"></div>
+      <div class="editor__header-actions">
+        <button class="icon-btn" id="editor-menu" aria-label="Opciones" testID="editor-menu">
+          <span data-icon="dots"></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="editor__scroll" id="editor-scroll">
+      <span class="editor__type-tag" id="editor-type-tag" testID="editor-type-tag"></span>
+
+      <textarea
+        id="editor-title"
+        class="editor__title"
+        rows="1"
+        placeholder="Título"
+        testID="editor-title"
+      ></textarea>
+
+      <textarea
+        id="editor-body"
+        class="editor__body"
+        placeholder="Escribe lo que tengas en mente…"
+        testID="editor-body"
+      ></textarea>
+
+      <!-- Checklist para listas / proyectos -->
+      <div id="editor-checklist" class="checklist" hidden></div>
+
+      <!-- Etiquetas -->
+      <div id="editor-tags" class="tags-row"></div>
+
+      <!-- NOVA SUGIERE (inline, integrado en el contenido) -->
+      <div id="suggest-slot"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       BOTTOM SHEET genérico
+       =================================================================== -->
+  <div id="scrim" class="scrim" aria-hidden="true"></div>
+  <div id="sheet" class="sheet" aria-hidden="true">
+    <div class="sheet__handle"></div>
+    <div id="sheet-content" class="sheet__content"></div>
+  </div>
+
+  <!-- ===================================================================
+       TOASTS
+       =================================================================== -->
+  <div id="toast-host" class="toast-host" aria-live="polite"></div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
